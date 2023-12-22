@@ -7,4 +7,4 @@
 - name: gimme a passwd
   containers.podman.podman_container_exec:
     name: "{{ whatchacallit }}"
-    command: "echo 'redhat\nredhat' |passwd {{ user }}"     ## not working atm
+    command: "echo {{ user }}:redhat |sudo chpasswd"     ## not working atm

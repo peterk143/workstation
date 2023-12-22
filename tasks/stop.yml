@@ -1,5 +1,5 @@
 ---
-- name: stop "{{ whatchacallit }}"
+- name: "stop {{ whatchacallit }}"
   containers.podman.podman_container:
     name: "{{ whatchacallit }}"
     state: stopped
