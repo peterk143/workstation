@@ -1,0 +1,38 @@
+---
+- name: Build Container Image
+  hosts: h4cknak3d
+  tasks:
+    - name: create tmp build directory
+      ansible.builtin.file:
+        path: /tmp/builds
+        state: directory
+        mode: '0755'
+      tags: build
+
+    - name: copy Containerfile
+      ansible.builtin.copy:
+        src: ../files/Containerfile
+        dest: /tmp/builds/Containerfile
+        mode: '0644'
+      tags: build
+
+    - name: build teh damn thing
+      containers.podman.podman_image:
+        name: "{{ whatchacallit }}"
+        path: /tmp/builds
+        build:
+          format: docker
+          extra_args: "--build-arg HOSTNAME={{ whatchacallit }}"    ## not working atm
+        tag: v3.5    ## if modified, update start.yml too
+      tags: build
+
+    - ansible.builtin.include_tasks: ../tasks/start.yml
+      tags: build
+  
+  post_tasks:
+      ## might want to reconsider this one day
+    - name: prune teh dangly bits
+      containers.podman.podman_prune:
+        system: true
+        system_all: true
+      tags: prune

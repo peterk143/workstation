@@ -1,0 +1,4 @@
+FROM registry.fedoraproject.org/fedora:latest
+#RUN echo -e "redhat\nredhat" |passwd --stdin root
+RUN dnf install -y vim-enhanced vim-ansible vim-syntastic-ansible openssl openssh
+ENTRYPOINT ["/bin/sh"]

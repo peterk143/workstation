@@ -1,0 +1,58 @@
+---
+## configure a podman workstation container
+## ansible-playbook playbooks/setup_workstations.yml
+- name: Setup a Podman Container
+  hosts: h4cknak3d
+  pre_tasks:
+    - name: duh herro
+      ansible.builtin.debug:
+        msg: we doing butt stuff now
+    
+    - name: download RedHat CA
+      containers.podman.podman_container_exec:
+        name: "{{ whatchacallit }}"
+        command: "curl -L -O {{ item }}"
+        workdir: /etc/pki/ca-trust/source/anchors/
+      with_items:
+        - https://certs.corp.redhat.com/certs/2015-IT-Root-CA.pem
+        - https://certs.corp.redhat.com/certs/2022-IT-Root-CA.pem
+        - https://certs.corp.redhat.com/chains/rhcs-ca-chain-2015.crt
+      tags: certs
+
+    - name: update ca trust
+      containers.podman.podman_container_exec:
+        name: "{{ whatchacallit }}"
+        command: update-ca-trust
+      tags: certs
+
+    - name: download brewkoji repo file
+      containers.podman.podman_container_exec:
+        name: "{{ whatchacallit }}"
+        command: "curl -L https://download.devel.redhat.com/rel-eng/RCMTOOLS/rcm-tools-fedora.repo -o /etc/yum.repos.d/rcm-tools.repo"
+      tags: brewkoji
+
+    - name: setup kerberos  ## assumes you have krb5 configured locally already
+      containers.podman.podman_container:
+        name: "{{ whatchacallit }}"
+        mount: "type=bind,source=/etc/krb5.conf,destination=/etc/krb5.conf"
+      tags: krb5
+
+  tasks:
+    - name: install some packages
+      containers.podman.podman_container_exec:
+        name: "{{ whatchacallit }}"
+        command: "dnf install -y {{ item }}"
+      with_items: "{{ packages }}"
+      ignore_errors: true
+      tags: packages
+
+    - ansible.builtin.include_tasks: ../tasks/dnf_update_container.yml
+      tags: packages
+
+    - ansible.builtin.include_tasks: ../tasks/create_user.yml
+      tags: user
+
+  post_tasks:
+    - name: get weird
+      ansible.builtin.debug:
+        msg: ooooof

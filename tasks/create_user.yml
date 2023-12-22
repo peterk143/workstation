@@ -1,0 +1,10 @@
+---
+- name: create me a dude
+  containers.podman.podman_container_exec:
+    name: "{{ whatchacallit }}"
+    command: "useradd -m -G wheel -s /usr/bin/bash {{ user }}"
+
+- name: gimme a passwd
+  containers.podman.podman_container_exec:
+    name: "{{ whatchacallit }}"
+    command: "echo 'redhat\nredhat' |passwd {{ user }}"     ## not working atm

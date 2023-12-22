@@ -1,0 +1,8 @@
+---
+- name: "start {{ whatchacallit }}"
+  containers.podman.podman_container:
+    name: "{{ whatchacallit }}"
+    image: "localhost/{{ whatchacallit }}:{{ container_ver }}"
+    state: started
+    detach: true
+    interactive: true

@@ -1,0 +1,33 @@
+---
+## configure a workstation VM
+## ansible-playbook -K playbooks/initial_setup.yml
+- name: Configure System
+  hosts: h4cknak3d
+  become: true
+  become_user: root
+
+  pre_tasks:
+    - name: duh herro
+      ansible.builtin.debug:
+        msg: we doing stuff
+
+  tasks:
+    - name: install some packages
+      ansible.builtin.dnf:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ packages }}"
+      ignore_errors: true
+
+  post_tasks:
+    - name: stop doing stuff
+      ansible.builtin.debug:
+        msg: couchSurf
+
+    - ansible.builtin.include_tasks: ../tasks/redhat_ca.yml
+
+    - name: copy ssh keys
+      ansible.posix.authorized_key:
+        user: "{{ user }}"
+        state: present
+        key: "{{ pub_sshkey }}"

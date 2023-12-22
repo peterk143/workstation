@@ -1,0 +1,15 @@
+---
+- name: Reset Dev Environment
+  hosts: h4cknak3d
+  gather_facts: false
+  tasks:
+    - name: "unalive teh {{ whatchacallit }} container"
+      containers.podman.podman_container:
+        name: "{{ whatchacallit }}"
+        state: absent
+        debug: true
+
+    - name: "{{ whatchacallit }}:{{ container_ver }} image go bye bye "
+      containers.podman.podman_image:
+        name: "localhost/{{ whatchacallit }}:{{ container_ver }}"
+        state: absent

@@ -1,0 +1,7 @@
+---
+- name: "{{ whatchacallit }}, do updates, meow"
+  containers.podman.podman_container_exec:
+    name: "{{ whatchacallit }}"
+    user: root
+    command: 'dnf update -y'
+    detach: true
