@@ -5,3 +5,4 @@
     user: root
     command: 'dnf update -y'
     detach: true
+  tags: packages

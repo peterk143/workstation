@@ -18,6 +18,7 @@
         state: present
       with_items: "{{ packages }}"
       ignore_errors: true
+      tags: packages
 
   post_tasks:
     - name: stop doing stuff
@@ -31,3 +32,4 @@
         user: "{{ user }}"
         state: present
         key: "{{ pub_sshkey }}"
+      tags: sshkeys

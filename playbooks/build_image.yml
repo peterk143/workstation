@@ -22,15 +22,15 @@
         path: /tmp/builds
         build:
           format: docker
-          extra_args: "--build-arg HOSTNAME={{ whatchacallit }}"    ## not working atm
+          extra_args: "--build-arg HOSTNAME={{ whatchacallit }}"  # yamllint disable-line rule:line-length
         tag: v3.5    ## if modified, update start.yml too
       tags: build
 
     - ansible.builtin.include_tasks: ../tasks/start.yml
       tags: build
-  
+
   post_tasks:
-      ## might want to reconsider this one day
+    ##  might want to reconsider this one day
     - name: prune teh dangly bits
       containers.podman.podman_prune:
         system: true

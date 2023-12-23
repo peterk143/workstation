@@ -1,0 +1,10 @@
+---
+- ansible.builtin.import_playbook: build_image.yml
+  tags: build
+
+- ansible.builtin.import_playbook: setup_workstation.yml
+  tags: setup
+
+## real    3m3.085s
+## user    0m18.735s
+## sys     0m1.894s

@@ -1,10 +1,54 @@
 ---
-- name: create me a dude
-  containers.podman.podman_container_exec:
-    name: "{{ whatchacallit }}"
-    command: "useradd -m -G wheel -s /usr/bin/bash {{ user }}"
+- block:
+    - name: add bro to chat
+      containers.podman.podman_container_exec:
+        name: "{{ whatchacallit }}"
+        command: "useradd -m -G wheel -s /usr/bin/bash {{ user }}"
+      register: result
+      tags: user
+  rescue:
+    - ansible.builtin.assert:
+        that: 
+          - "'already exists' in result.msg"
+        success_msg: "user {{ user }} already exists"
+        fail_msg: "cannot create user {{ user }}"
+      tags: user
+
+## figure out how to move sshkeys??
+## DOES NOT WORK
+#- name: mount sshkeys from localhost
+#  containers.podman.podman_container:
+#    name: "{{ whatchacallit }}"
+#    mount: "type=bind,source=/home/{{ user }}/.ssh/{{ item }},destination=/home/{{ user }}/.ssh/{{ item }}"  # yamllint disable-line rule:line-length
+#  with_items:
+#    - authorized_keys
+#    - id_ed25519
+#    - id_ed25519.pub
+#    - id_rsa
+#    - id_rsa.pub
+#    - config
+#  tags:
+#    - user
+#    - sshkeys
 
 - name: gimme a passwd
   containers.podman.podman_container_exec:
     name: "{{ whatchacallit }}"
-    command: "echo {{ user }}:redhat |sudo chpasswd"     ## not working atm
+    command: 'printf "{{ user }}:{{ password }}" |chpasswd'
+    detach: true
+  tags:
+    - user
+    - passwd
+
+- name: gimme a passwd but different
+  containers.podman.podman_container_exec:
+    name: "{{ whatchacallit }}"
+    argv:
+      - echo
+      - "{{ user }}:{{ password }}"
+      - "|"
+      - chpasswd
+    detach: true
+  tags:
+    - user
+    - passwd

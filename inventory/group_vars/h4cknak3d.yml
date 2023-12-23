@@ -1,15 +1,17 @@
+---
 container_ver: v3.5
-whatchacallit: battleship 
+whatchacallit: battleship
 
 packages:
-- brewkoji
-- brewkoji-stage
-- git
-- koji
-- krb5-workstation
-#- ocp-sso-token
+  - brewkoji
+  - brewkoji-stage
+  - git
+  - koji
+  - krb5-workstation
+#  - ocp-sso-token
 
 user: peterk
-pub_sshkey: 
-- "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB3anBUzXcRfZA40hiWgshje+BNnq4SdYvoiRH45qrv3 pkirkpat@redhat.com"
-- "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC7gBZiOPPySolx6KSTE+pbhaKdu2G2Ma4Cyup+WiLBtDf8OMcVSW0cvScHdN77R7Qj8rMoHJF+81oXAfK9+gV73lNJlN79jVZXCz6Na5crj7nihMyf+UvHC7m7E9cn70CehtdyQCJGRoqLnR+KE4atSxRVyd4JIFTcS+STZb3W5SXQAEaYW3iGaO7mSkYKBLWk0xkWJDFfHg1xj1nOgmq146kFX5lbHMWeYQMTukAsacyiepEiEbcJJpSfXShgq1ecSao4RLUAjARxzbkf5J5lYA2erTANOGqtk01CRcgyIO/2VIFcIkvskqIE29rL4RmC7xgyq2fIiPI1/uivWfcyQC0pLoWbe+4e3JI93r68yNP8ADEY1i4G1nRZBUQFvjbe/5/+RTyLh8SN+hCoUMnnHHpw8OilnNqybUraIr3lJVQ6VZOC5kOPefSYoUD1Ar76c4IQcK8LhvgiCw5YDr4VmfXjK+ws9SsbYqOruWYxTJSmdkFl3JFA/XrQ0Ys2YlU8adDYkowTTcwLzBus6mMplVEKY64B84SR5OuF9i5MgVPx8o1hppzDS6tQuHxa5todafImFGcVMl6LCe0hu0M5gTF04ZqL3cJe0KBSpdMG8yKuPoqd2L6ejDfE2+pAVTYfN1SWiTajVKtrWhglUGaYzTe1iahxiBwtfjm371tMww== pkirkpat@redhat.com"
+password: redhat
+pub_sshkey:
+  - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB3anBUzXcRfZA40hiWgshje+BNnq4SdYvoiRH45qrv3 pkirkpat@redhat.com"  # yamllint disable-line rule:line-length
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC7gBZiOPPySolx6KSTE+pbhaKdu2G2Ma4Cyup+WiLBtDf8OMcVSW0cvScHdN77R7Qj8rMoHJF+81oXAfK9+gV73lNJlN79jVZXCz6Na5crj7nihMyf+UvHC7m7E9cn70CehtdyQCJGRoqLnR+KE4atSxRVyd4JIFTcS+STZb3W5SXQAEaYW3iGaO7mSkYKBLWk0xkWJDFfHg1xj1nOgmq146kFX5lbHMWeYQMTukAsacyiepEiEbcJJpSfXShgq1ecSao4RLUAjARxzbkf5J5lYA2erTANOGqtk01CRcgyIO/2VIFcIkvskqIE29rL4RmC7xgyq2fIiPI1/uivWfcyQC0pLoWbe+4e3JI93r68yNP8ADEY1i4G1nRZBUQFvjbe/5/+RTyLh8SN+hCoUMnnHHpw8OilnNqybUraIr3lJVQ6VZOC5kOPefSYoUD1Ar76c4IQcK8LhvgiCw5YDr4VmfXjK+ws9SsbYqOruWYxTJSmdkFl3JFA/XrQ0Ys2YlU8adDYkowTTcwLzBus6mMplVEKY64B84SR5OuF9i5MgVPx8o1hppzDS6tQuHxa5todafImFGcVMl6LCe0hu0M5gTF04ZqL3cJe0KBSpdMG8yKuPoqd2L6ejDfE2+pAVTYfN1SWiTajVKtrWhglUGaYzTe1iahxiBwtfjm371tMww== pkirkpat@redhat.com"  # yamllint disable-line rule:line-length

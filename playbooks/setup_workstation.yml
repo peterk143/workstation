@@ -7,7 +7,7 @@
     - name: duh herro
       ansible.builtin.debug:
         msg: we doing butt stuff now
-    
+
     - name: download RedHat CA
       containers.podman.podman_container_exec:
         name: "{{ whatchacallit }}"
@@ -28,10 +28,13 @@
     - name: download brewkoji repo file
       containers.podman.podman_container_exec:
         name: "{{ whatchacallit }}"
-        command: "curl -L https://download.devel.redhat.com/rel-eng/RCMTOOLS/rcm-tools-fedora.repo -o /etc/yum.repos.d/rcm-tools.repo"
+        command: "curl -L https://download.devel.redhat.com/rel-eng/RCMTOOLS/rcm-tools-fedora.repo -o /etc/yum.repos.d/rcm-tools.repo"  # yamllint disable-line rule:line-length
       tags: brewkoji
 
-    - name: setup kerberos  ## assumes you have krb5 configured locally already
+    ## assumes you already have krb5 setup
+    ## find the krb5 ansible-role in gitlab.cee
+    ## DOES NOT WORK
+    - name: setup kerberos
       containers.podman.podman_container:
         name: "{{ whatchacallit }}"
         mount: "type=bind,source=/etc/krb5.conf,destination=/etc/krb5.conf"
@@ -50,7 +53,10 @@
       tags: packages
 
     - ansible.builtin.include_tasks: ../tasks/create_user.yml
-      tags: user
+      tags:
+        - user
+        - passwd
+        - sshkeys
 
   post_tasks:
     - name: get weird
